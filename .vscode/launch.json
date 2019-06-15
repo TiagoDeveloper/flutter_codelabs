@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "main",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "hello",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/helloWorld.dart"
+        },
+        {
+            "name": "imgPicker",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/imagePickLib.dart"
+        },
+        {
+            "name": "cookbook",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/cookbook.dart"
+        },
+        {
+            "name": "drawer",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/drawer.dart"
+        },
+        {
+            "name": "qrcode",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/qrCode.dart"
+        },
+        {
+            "name": "qrcode2",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/qrCode2.dart"
+        },
+        {
+            "name": "cardDart",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/cardDart.dart"
+        }
+    ]
+}
