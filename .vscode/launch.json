@@ -57,6 +57,12 @@
             "type": "dart",
             "request": "launch",
             "program": "lib/bottomMenu.dart"
+        },
+        {
+            "name": "gridAndList",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/gridAndList.dart"
         }
     ]
 }

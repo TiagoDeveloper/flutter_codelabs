@@ -4,17 +4,13 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget{
-  MyAppState createState() => new MyAppState();
+  MyAppState createState(){
+    return new MyAppState();
+  } 
 }
 
 class MyAppState extends State<MyApp>{
-  MenuOption m  = new MenuOption(
-    Text("home"),
-    BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home')
-    )
-  );
+  
   int _paginaSelecionada = 0;
   final _menuOptions = [
     Text('Home'),
@@ -56,18 +52,4 @@ class MyAppState extends State<MyApp>{
       ),
     );
   }
-}
-
-class MenuOption{
-
-  Widget conteudo;
-  var item;
-
-  MenuOption(Widget conteudo, item){
-    this.conteudo = conteudo;
-    this.item = item;
-  }
-  
-
-
 }
