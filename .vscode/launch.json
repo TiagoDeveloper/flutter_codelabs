@@ -63,6 +63,18 @@
             "type": "dart",
             "request": "launch",
             "program": "lib/gridAndList.dart"
+        },
+        {
+            "name": "filePicker",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/filePicker.dart"
+        },
+        {
+            "name": "chanelTest",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/chanelTest.dart"
         }
     ]
 }
