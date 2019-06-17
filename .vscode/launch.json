@@ -75,6 +75,12 @@
             "type": "dart",
             "request": "launch",
             "program": "lib/chanelTest.dart"
+        },
+        {
+            "name": "flutterMap",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/flutterMap.dart"
         }
     ]
 }
