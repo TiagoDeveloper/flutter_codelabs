@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
@@ -14,6 +15,17 @@ class MyAppState extends State<MyApp>{
 
   List<Marker> _listaMakers = [];
   var location = new Location();
+  double lat = 0.0;
+  double lng = 0.0;
+  MapOptions mapOptions;
+  LatLng latLng;
+  MapController _mapController = new MapControllerImpl();
+
+  @override
+  void initState() {
+    super.initState();
+    this._ouvindo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,54 +39,41 @@ class MyAppState extends State<MyApp>{
           if(snapshot.data==null){
             return Center(child: Text('Loading...'),);
           }
-          if(_listaMakers.length == 0){
-            _addMakers(
-              new Marker(
-                width: 80.0,
-                height: 80.0,
-                point: new LatLng(snapshot.data.latitude, snapshot.data.longitude),
-                builder: (ctx) =>
-                new Container(
-                  child: new Icon(Icons.my_location, color: Colors.blue),
-                ),
-              ),
-            );
-          }
 
           return new FlutterMap(
-            options: new MapOptions(
-              center: new LatLng(snapshot.data.latitude, snapshot.data.longitude),
-              zoom: 16.0,
-
-              onTap: (clickLocation) {
-                setState(() {
-                  _addMakers(
-                    new Marker(
-                      width: 80.0,
-                      height: 80.0,
-                      point: new LatLng(clickLocation.latitude, clickLocation.longitude),
-                      builder: (ctx) =>
-                      new Container(
-                        child: new Icon(Icons.location_on, color: Colors.red),
-                      ),
-                    ),
-                  );
-                  
-                });
-
-              }
-            ),
+            mapController: this._mapController,
+            options: this._criarMapOptions(snapshot.data.latitude, snapshot.data.longitude),
             layers: [
               new TileLayerOptions(
                 urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 subdomains: ['a', 'b', 'c']
               ),
               new MarkerLayerOptions(
-                markers: this._listaMakers
+                markers: [
+                  new Marker(
+                    width: 80.0,
+                    height: 80.0,
+                    point: new LatLng(this.lat, this.lng),
+                    builder: (ctx) =>
+                    new Container(
+                      child: new Icon(Icons.my_location, color: Colors.blue),
+                    ),
+                  )
+                ]
               ),
             ],
           );
         },
+      ),
+      floatingActionButton: new FloatingActionButton(
+
+        onPressed:() {
+          setState(() {
+            this._mapController.move(this.latLng, 16.0);
+          });
+        },
+        child: Center(child: Icon(Icons.location_searching),),
+        mini: true,
       ),
     );
   }
@@ -87,4 +86,40 @@ class MyAppState extends State<MyApp>{
     return await this.location.getLocation();
   }
 
+  MapOptions _criarMapOptions(latitude,longitude){
+    this.latLng = new LatLng(latitude, longitude);
+    this.mapOptions = new MapOptions(
+        center: this.latLng,
+        zoom: 16.0,
+        onTap: (clickLocation) {
+          setState(() {
+            _addMakers(
+              new Marker(
+                width: 80.0,
+                height: 80.0,
+                point: new LatLng(clickLocation.latitude, clickLocation.longitude),
+                builder: (ctx) =>
+                new Container(
+                  child: new Icon(Icons.location_on, color: Colors.red),
+                ),
+              ),
+            );
+            
+          });
+
+        }
+      );
+
+      return this.mapOptions;
+  }
+
+  void _ouvindo(){
+      this.location.onLocationChanged().listen((LocationData currentLocation) {
+        setState(() {
+            this.lat = currentLocation.latitude;
+            this.lng = currentLocation.longitude;
+        });
+      });
+      
+  }
 }
